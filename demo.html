@@ -17,7 +17,7 @@
 	$(function() {
 		$('ul')
 // Handle "hover" class for IE. Can be removed for standard compliant clients
-			.find('label')
+			.children('li')
 				.fixhover()
 			.end()
 // run checklist
@@ -26,7 +26,9 @@
 
 	</script>
 	<style type="text/css">
-		.checklist {
+
+/* Default style. No JS */
+		ul {
 			margin: 20px;
 			padding: 0;
 			width: 200px;
@@ -35,7 +37,7 @@
 			list-style: none;
 		}
 
-		.checklist li {
+		ul li {
 			position: relative;
 			margin: 0 -1px;
 			border: 1px solid silver;
@@ -43,29 +45,39 @@
 			font-weight: bold;
 		}
 
-		.checklist li.last {
+		ul li.last {
 			border-bottom-width: 0;
 			margin-bottom: 0;
 		}
 
-		.checklist input {
-			display: none;
-		}
-
-		.checklist label {
-			display: block;
-			padding: 2px 50px 2px 5px;
-			background: url(checklist.png) no-repeat right bottom;
-			color: #aaa;
-			cursor: pointer;
-		}
-
-		.checklist .hover, /* For IE. Can be removed for standard compliant clients */
-		.checklist li:hover {
+		ul li.hover label, /* For IE. Can be removed for standard compliant clients */
+		ul li:hover label {
 			background-color: #eee;
 		}
 
-		.checklist .checked label {
+		ul label {
+			display: block;
+			padding: 2px 5px;
+			cursor: pointer;
+		}
+
+		ul input {
+			float: right;
+		}
+
+/* Style when JS added the class checklistJS to the root UL */
+
+		.checklistJS input {
+			display: none;
+		}
+
+		.checklistJS label {
+			padding-right: 50px;
+			background: url(checklist.png) no-repeat right bottom;
+			color: #aaa;
+		}
+
+		.checklistJS .checked label {
 			background-position: right top;
 			color: black;
 		}

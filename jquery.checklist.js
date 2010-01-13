@@ -1,17 +1,12 @@
 (function(window, $, undef) {
-	var isChecked = function() {
-		return !!$(this)
-			.children('input[type=checkbox]:checked')
-				.length;
-	};
 
 	$.fn.checklist = function(options) {
 		options = $.extend({
-			rootCls		: 'checklist',
+			rootCls		: 'checklistJS',
 			checkCls	: 'checked'
-		}, options),
+		}, options);
 
-		clickHandler = function(e) {
+		var clickHandler = function(e) {
 			var li = e.target.tagName === 'LI' ? $(e.target) : $(e.target).filter('li *').parents('li:first'),
 			check = !li.hasClass(options.checkCls);
 			li
@@ -19,22 +14,20 @@
 				.children('input[type=checkbox]')
 					.attr('checked', check);
 			return e.target.tagName === 'INPUT';
-		},
-
-		init = function() {
-			$(this)
-				.addClass(options.rootCls)
-				.click(clickHandler)
-				.children('li')
-					.filter(function() {
-						return !!$(this)
-							.children('input[type=checkbox]:checked')
-								.length;
-					})
-					.addClass(options.checkCls);
 		};
 
-		return this.each(init);
+		return this
+			.addClass(options.rootCls)
+			.click(clickHandler)
+			.children('li')
+				.filter(function() {
+					return !!$(this)
+						.children('input[type=checkbox]:checked')
+							.length;
+				})
+					.addClass(options.checkCls)
+				.end()
+			.end();
 	};
 
 })(this, this.jQuery);
