@@ -1,3 +1,20 @@
+/**
+ *
+ * Use :
+ * $(selector for the UL).checklist();
+ * $(selector for the UL).checklist(options);
+ *
+ * Options :
+ *   rootCls        : (default: checklistJS) CSS className added to the root UL of the list
+ *   checkCls       : (default: checked) CSS className added to each LI containing a checked checkbox
+ *
+ *
+ * Free to use, free to study, free to change, free to redistribute
+ *
+ * @author  : Nicolas Deveaud <nicolas@deveaud.fr>
+ * @version : 1.0 (realease date: jan 13 2010)
+ */
+ 
 (function(window, $, undef) {
 
 	$.fn.checklist = function(options) {
