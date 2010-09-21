@@ -1,4 +1,5 @@
 /**
+ * jQuery plugin to manage a list of checkboxes
  *
  * Use :
  * $(selector for the UL).checklist();
@@ -15,36 +16,41 @@
  * @version : 1.0 (realease date: jan 13 2010)
  */
  
-(function(window, $, undef) {
+(function (window, Error, $, undef) {
+    if ($ === undef) {
+        throw new Error('Dépendence non satisfaite : jQuery');
+    }
 
-	$.fn.checklist = function(options) {
-		options = $.extend({
-			rootCls		: 'checklistJS',
-			checkCls	: 'checked'
-		}, options);
+    function checklist(options) {
+        options = $.extend({
+            rootCls   : 'checklistJS',
+            checkCls  : 'checked'
+        }, options);
 
-		var clickHandler = function(e) {
-			var li = e.target.tagName === 'LI' ? $(e.target) : $(e.target).filter('li *').parents('li:first'),
-			check = !li.hasClass(options.checkCls);
-			li
-				[check ? 'addClass' : 'removeClass'](options.checkCls)
-				.children('input[type=checkbox]')
-					.attr('checked', check);
-			return e.target.tagName === 'INPUT';
-		};
+        function clickHandler(e) {
+            var li = e.target.tagName === 'LI' ? $(e.target) : $(e.target).filter('li *').parents('li:first'),
+            check = !li.hasClass(options.checkCls);
+            li
+                [check ? 'addClass' : 'removeClass'](options.checkCls)
+                .children('input[type=checkbox]')
+                    .attr('checked', check);
+            return e.target.tagName === 'INPUT';
+        }
 
-		return this
-			.addClass(options.rootCls)
-			.click(clickHandler)
-			.children('li')
-				.filter(function() {
-					return !!$(this)
-						.children('input[type=checkbox]:checked')
-							.length;
-				})
-					.addClass(options.checkCls)
-				.end()
-			.end();
-	};
+        return this
+            .addClass(options.rootCls)
+            .click(clickHandler)
+            .children('li')
+                .filter(function () {
+                    return !!$(this)
+                        .children('input[type=checkbox]:checked')
+                            .length;
+                })
+                    .addClass(options.checkCls)
+                .end()
+            .end();
+    }
 
-})(this, this.jQuery);
+    $.fn.checklist = $.fn.checklist || checklist;
+
+}(this, this.Error, this.jQuery));
