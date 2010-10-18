@@ -34,7 +34,9 @@
                 [check ? 'addClass' : 'removeClass'](options.checkCls)
                 .children('input[type=checkbox]')
                     .attr('checked', check);
-            return e.target.tagName === 'INPUT';
+            if(e.target.tagName !== 'INPUT') {
+                e.preventDefault();
+            }
         }
 
         return this
